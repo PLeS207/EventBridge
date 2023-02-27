@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Sid": "InvoiceProcessingRuleCreation",
+    "Effect": "Allow",
+    "Principal": {
+      "AWS": "arn:aws:iam::<<TARGET_ACCOUNT_NUMBER >>:root"
+    },
+    "Action": ["events:RemoveTargets", "events:PutTargets", "events:PutRule", "events:EnableRule", "events:DisableRule", "events:DescribeRule", "events:DeleteRule"],
+    "Resource": "arn:aws:events:<<TARGET_REGION>>:<<TARGET_ACCOUNT_NUMBER>>:event-bus/default"
+  }, {
+    "Sid": "WebStoreCrossAccountPublish",
+    "Effect": "Allow",
+    "Principal": {
+      "AWS": ["arn:aws:iam::<<SOURCE_ACCOUNT_NUMBER>>:root", "arn:aws:iam::<<SOURCE2_ACCOUNT_NUMBER>>:root"]
+    },
+    "Action": "events:PutEvents",
+    "Resource": "arn:aws:events:<<TARGET_REGION>>:<<TARGET_ACCOUNT_NUMBER>>:event-bus/default"
+  }]
+}
